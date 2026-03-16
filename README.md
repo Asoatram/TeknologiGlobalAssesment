@@ -15,6 +15,29 @@ flowchart LR
     CMD[Seed/CSV Commands] --> DB
 ```
 
+### Layer Boundaries
+
+- `api/v1/endpoints`: HTTP boundary only (parse input, return HTTP status/JSON).
+- `services`: business rules and query orchestration.
+- `schemas`: explicit request/response contracts.
+- `models`: persistence model + constraints.
+- `alembic`: schema evolution.
+- `command`: operational scripts (seed/generate CSV).
+
+### Request Lifecycle
+
+```mermaid
+flowchart LR
+    IN[HTTP Request] --> V[FastAPI validation]
+    V --> E[Endpoint handler]
+    E --> B[Service business logic]
+    B --> Q[SQLAlchemy query/transaction]
+    Q --> DB[(PostgreSQL)]
+    DB --> M[Mapped rows]
+    M --> D[Schema serialization]
+    D --> OUT[HTTP JSON Response]
+```
+
 ## ERD
 
 ```mermaid
@@ -141,17 +164,33 @@ sequenceDiagram
     API-->>FE: updated counters + remaining errors
 ```
 
-## Project Map
+## Project Structure
 
 ```text
-src/app/api/v1/endpoints/   # HTTP routes
-src/app/services/           # business logic
-src/app/schemas/            # request/response contracts
-src/app/models/             # ORM models
-alembic/versions/           # schema migrations
-src/command/                # seed and CSV generation
-tests/                      # baseline tests
+.
+├── src/
+│   ├── app/
+│   │   ├── api/v1/endpoints/      # route handlers
+│   │   ├── services/              # domain logic
+│   │   ├── schemas/               # API DTOs
+│   │   ├── models/                # ORM entities
+│   │   ├── db/                    # engine/session/base
+│   │   └── core/                  # config/env loading
+│   └── command/                   # seed + CSV generators
+├── alembic/
+│   ├── env.py                     # migration runtime config
+│   └── versions/                  # migration revisions
+├── tests/                         # unit/API baseline tests
+├── data/csv/                      # generated CSV fixtures
+├── ERD.md                         # schema narrative
+└── README.md
 ```
+
+Suggested reading order:
+1. `src/app/api/v1/endpoints/inventory.py`
+2. `src/app/services/`
+3. `src/app/models/` + `alembic/versions/`
+4. `tests/`
 
 ## API Surface
 
