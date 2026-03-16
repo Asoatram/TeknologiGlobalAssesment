@@ -44,7 +44,7 @@ erDiagram
       int ItemID FK
       int WarehouseID FK
       int Quantity_On_Hand
-      int ReorderThreshold nullable
+      int ReorderThreshold
       datetime UpdatedAt
     }
 
@@ -52,7 +52,7 @@ erDiagram
       int TransactionID PK
       int ItemID FK
       int WarehouseID FK
-      enum EventType
+      string EventType
       int Quantity
       datetime Timestamp
     }
@@ -72,17 +72,17 @@ erDiagram
     Parsed_Item {
       int ParsedEventID PK
       int DocumentID FK
-      int ItemID FK nullable
-      int WarehouseID FK nullable
+      int ItemID FK
+      int WarehouseID FK
       string SKU
       string Warehouse
       string TransactionType
       string QuantityRaw
       string TimestampRaw
-      int Quantity nullable
+      int Quantity
       string RowStatus
-      int AppliedTransactionID FK nullable
-      string Message nullable
+      int AppliedTransactionID FK
+      string Message
     }
 ```
 
