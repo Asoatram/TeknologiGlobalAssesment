@@ -122,6 +122,14 @@ flowchart TD
 
 - Transaction types: `restock`, `sale`, `adjustment`
 - Import strategy: partial success (valid applied, invalid pending)
+- Low stock is triggered when:
+  - `quantity_on_hand <= 0` -> `out_of_stock`
+  - `quantity_on_hand <= reorder_threshold` -> `low_stock` (when threshold exists)
+- Reorder threshold calculation (per item + warehouse):
+  - Uses only `sale` events from the last 30 days
+  - `threshold = ceil((sum_sales_30d / 30) * 7 * 1.25)`
+  - If no sales in 30 days -> threshold = `5`
+  - Threshold is clamped to max `500`
 
 ## Main Flows
 
@@ -210,9 +218,14 @@ Docs: `http://localhost:8000/docs`
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-.venv/bin/pip install fastapi uvicorn sqlalchemy alembic psycopg psycopg-binary python-dotenv python-multipart pydantic
+.venv/bin/pip install -r requirements.txt
 cp .env.example .env
 alembic upgrade head
+
+# seed first
+PYTHONPATH=src .venv/bin/python -m command.seed_data --mode reset --size medium --seed 42
+
+# run app
 PYTHONPATH=src uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -222,9 +235,6 @@ PYTHONPATH=src uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 # tests
 .venv/bin/pip install pytest
 PYTHONPATH=src .venv/bin/python -m pytest -q
-
-# seed
-PYTHONPATH=src .venv/bin/python -m command.seed_data --mode reset --size medium --seed 42
 
 # csv fixture generation
 PYTHONPATH=src .venv/bin/python -m command.generate_transactions_csv --rows 400 --invalid-ratio 0.1 --seed 42

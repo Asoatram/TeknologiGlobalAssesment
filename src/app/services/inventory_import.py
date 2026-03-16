@@ -28,6 +28,7 @@ from app.schemas.inventory_import import (
     InventoryImportUploadResponse,
     ValidationErrorItem,
 )
+from app.services.reorder_threshold import recalculate_reorder_threshold_for_stock
 
 EXPECTED_CSV_HEADERS = ["sku", "warehouse", "transaction_type", "quantity", "timestamp"]
 
@@ -206,6 +207,14 @@ def _apply_row(
     )
     session.add(transaction)
     session.flush()
+
+    recalculate_reorder_threshold_for_stock(
+        session,
+        item_id=validated.item_id,
+        warehouse_id=validated.warehouse_id,
+        as_of=validated.timestamp,
+    )
+
     return transaction.transaction_id, []
 
 

@@ -18,6 +18,7 @@ from app.models.inventory import (
 )
 from app.models.item import Item
 from app.models.warehouse import Warehouse
+from app.services.reorder_threshold import recalculate_all_reorder_thresholds
 
 
 @dataclass(frozen=True)
@@ -283,6 +284,7 @@ def _seed_reset(session: Session, profile: SeedProfile, rng: random.Random) -> d
     session.flush()
 
     transaction_count = _seed_transactions(session, profile, rng, stocks)
+    recalculate_all_reorder_thresholds(session)
     return {
         "warehouses": len(warehouses),
         "items": len(items),
@@ -340,6 +342,7 @@ def _seed_upsert(session: Session, profile: SeedProfile, rng: random.Random) -> 
 
     stocks = session.scalars(select(InventoryStock)).all()
     transaction_count = _seed_transactions(session, profile, rng, stocks)
+    recalculate_all_reorder_thresholds(session)
     return {
         "warehouses": inserted_warehouses,
         "items": inserted_items,
