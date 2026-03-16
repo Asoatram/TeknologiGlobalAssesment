@@ -92,22 +92,8 @@ npm run preview
 
 The app is organized by page/feature in `src/page`.
 
-- `src/component`
-- Contains shared app-level UI (`Header`).
-
-- `src/page/list`
-- Inventory list page.
-- Includes modular components (`component/`), API clients (`api/`), types (`types/`), and filter validation (`form-validation/`).
-- Handles filtering, sorting, pagination, CSV upload/import flow, and refresh after successful import.
-
-- `src/page/item-details`
-- SKU-based item details page (`/inventory/items/sku/:sku`).
-- Renders stock levels and transaction history from backend.
-
-- `src/page/insight`
-- Insights/analytics page (`/insight`).
-- Fetches `/api/v1/inventory/insights` and renders KPI cards and charts using Recharts.
-
-- `src/App.tsx`
-- App routing and layout shell with React Router.
-
+- `src/component`: shared app-level UI (`Header`).
+- `src/page/list`: inventory list module with `component/`, `api/`, `types/`, and `form-validation/`; handles filtering, sorting, pagination, and CSV import flow.
+- `src/page/item-details`: SKU-based item details page (`/inventory/items/sku/:sku`) that renders stock levels and transaction history.
+- `src/page/insight`: insights page (`/insight`) that fetches `/api/v1/inventory/insights` and renders KPI cards and charts using Recharts.
+- `src/App.tsx`: app routing and layout shell using React Router.
