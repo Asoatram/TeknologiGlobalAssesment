@@ -70,3 +70,6 @@ pgdata/
 # Docker
 .docker/
 docker-compose.override.yml
+
+ERD.md
+PROJECT_CONTEXT.md
