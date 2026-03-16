@@ -24,20 +24,6 @@ flowchart LR
 - `alembic`: schema evolution.
 - `command`: operational scripts (seed/generate CSV).
 
-### Request Lifecycle
-
-```mermaid
-flowchart LR
-    IN[HTTP Request] --> V[FastAPI validation]
-    V --> E[Endpoint handler]
-    E --> B[Service business logic]
-    B --> Q[SQLAlchemy query/transaction]
-    Q --> DB[(PostgreSQL)]
-    DB --> M[Mapped rows]
-    M --> D[Schema serialization]
-    D --> OUT[HTTP JSON Response]
-```
-
 ## ERD
 
 ```mermaid
@@ -126,10 +112,15 @@ flowchart TD
   - `quantity_on_hand <= 0` -> `out_of_stock`
   - `quantity_on_hand <= reorder_threshold` -> `low_stock` (when threshold exists)
 - Reorder threshold calculation (per item + warehouse):
-  - Uses only `sale` events from the last 30 days
-  - `threshold = ceil((sum_sales_30d / 30) * 7 * 1.25)`
-  - If no sales in 30 days -> threshold = `5`
-  - Threshold is clamped to max `500`
+  - Formula:
+    - `avg_daily_sales = sum_sales(window_days) / window_days`
+    - `reorder_threshold = ceil(avg_daily_sales * lead_time_days * safety_factor)`
+  - Parameter values (v1):
+    - `window_days = 30`
+    - `lead_time_days = 7`
+    - `safety_factor = 1.25`
+    - no-sales fallback threshold = `5`
+    - max threshold cap = `500`
 
 ## Main Flows
 
