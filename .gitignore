@@ -71,5 +71,5 @@ pgdata/
 .docker/
 docker-compose.override.yml
 
-ERD.md
+BACKEND_TO_FRONTEND_HANDOVER.md
 PROJECT_CONTEXT.md
