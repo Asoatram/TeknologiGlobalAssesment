@@ -1,0 +1,265 @@
+.insight-page {
+  margin: 0 auto;
+  max-width: 1320px;
+  padding: 28px;
+}
+
+.insight-header {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.insight-title {
+  color: #0f172a;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.insight-subtitle {
+  color: #64748b;
+  font-size: 17px;
+  margin: 8px 0 0;
+}
+
+.insight-api-state {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  color: #1e3a8a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+}
+
+.insight-api-state--error {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.insight-kpi-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 24px;
+}
+
+.insight-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.insight-kpi-card {
+  padding: 22px;
+}
+
+.insight-kpi-label {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.insight-kpi-value-row {
+  align-items: baseline;
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.insight-kpi-value {
+  color: #0f172a;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.insight-kpi-delta {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.insight-kpi-delta.is-positive {
+  color: #059669;
+}
+
+.insight-kpi-delta.is-negative {
+  color: #e11d48;
+}
+
+.insight-kpi-meta {
+  color: #94a3b8;
+  font-size: 13px;
+  margin: 10px 0 0;
+}
+
+.insight-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.insight-chart-card {
+  min-height: 420px;
+  padding: 22px;
+}
+
+.insight-chart-card h3 {
+  color: #0f172a;
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.insight-chart-card p {
+  color: #64748b;
+  font-size: 15px;
+  margin: 4px 0 0;
+}
+
+.insight-chart-wrap {
+  border-bottom: 1px solid #eef2f7;
+  height: 280px;
+  margin-top: 18px;
+  padding: 6px 0 8px;
+  width: 100%;
+}
+
+.insight-chart-wrap--horizontal {
+  height: 256px;
+}
+
+.insight-status-layout {
+  align-items: center;
+  display: flex;
+  gap: 26px;
+  justify-content: center;
+  margin-top: 26px;
+}
+
+.insight-donut-wrap {
+  align-items: center;
+  display: flex;
+  height: 192px;
+  justify-content: center;
+  position: relative;
+  width: 192px;
+}
+
+.insight-donut-center {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 142px;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 142px;
+}
+
+.insight-donut-center strong {
+  color: #0f172a;
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.insight-donut-center span {
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.insight-status-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insight-status-legend li {
+  align-items: center;
+  color: #0f172a;
+  display: flex;
+  font-size: 18px;
+  font-weight: 600;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+.insight-status-legend span {
+  border-radius: 999px;
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+
+.insight-quantity-footnote {
+  border-top: 1px solid #eef2f7;
+  color: #64748b;
+  font-size: 13px;
+  margin: 14px 0 0;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.insight-empty-chart {
+  align-items: center;
+  color: #94a3b8;
+  display: flex;
+  font-size: 13px;
+  font-weight: 600;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .insight-title {
+    font-size: 34px;
+  }
+
+  .insight-chart-card h3 {
+    font-size: 24px;
+  }
+
+  .insight-kpi-value {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 940px) {
+  .insight-page {
+    padding: 16px;
+  }
+
+  .insight-kpi-grid,
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-status-layout {
+    flex-direction: column;
+    gap: 14px;
+  }
+}
