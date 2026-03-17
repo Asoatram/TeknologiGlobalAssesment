@@ -15,10 +15,11 @@ services:
     restart: unless-stopped
 
   backend:
-    image: asoatram/backend-python:v1.0.0
+    image: asoatram/backend-python:v1.0.1
     environment:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/app_db
       RUN_SEED: "true"
+      RUN_RECALCULATE_THRESHOLD: "true"
       SEED_MODE: reset
       SEED_SIZE: medium
       SEED_RANDOM_SEED: "42"

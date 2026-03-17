@@ -245,6 +245,8 @@ Reset DB data:
 docker compose down -v
 ```
 
+`backend` image startup now runs threshold recalculation automatically (`RUN_RECALCULATE_THRESHOLD=true` by default).
+
 ### Option B: Local development (without Docker)
 
 Backend:
@@ -257,6 +259,7 @@ source .venv/bin/activate
 cp .env.example .env
 alembic upgrade head
 PYTHONPATH=src .venv/bin/python -m command.seed_data --mode reset --size medium --seed 42
+PYTHONPATH=src .venv/bin/python -m command.recalculate_reorder_thresholds
 PYTHONPATH=src uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
