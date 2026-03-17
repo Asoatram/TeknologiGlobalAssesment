@@ -87,7 +87,7 @@ Prerequisites:
 Run the full stack:
 
 ```bash
-cd /home/muhamad-daffa-azfa-rabbani/Public/JobAssement
+cd /folder/for-app
 docker compose up -d
 ```
 
