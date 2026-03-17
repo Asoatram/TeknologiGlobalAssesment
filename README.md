@@ -231,9 +231,23 @@ PYTHONPATH=src .venv/bin/python -m pytest -q
 PYTHONPATH=src .venv/bin/python -m command.generate_transactions_csv --rows 400 --invalid-ratio 0.1 --seed 42
 ```
 
-## Assumptions / Tradeoffs
+## Assumptions
 
-- `ReorderThreshold` nullable by design (future intelligence feature).
-- No auth layer (assessment scope).
-- Supplier section is placeholder in item details (no supplier table).
-- Known issue: `GET /inventory/insights` has a PostgreSQL grouping edge case to fix.
+- Authentication already exists at app/platform level; this backend focuses only on inventory domain logic.
+- Supplier-per-SKU data already exists in another service/source; current backend keeps supplier as placeholder only.
+- `ReorderThreshold` is nullable because threshold is derived from sales behavior and can be computed later.
+
+## Tradeoffs / Limitations
+
+- No authentication/authorization middleware in this service layer (RBAC not implemented here).
+- Reorder threshold uses fixed lead-time and safety parameters because supplier lead-time is not modeled yet.
+- Insights are optimized for current dashboard requirements, not full BI analytics coverage.
+- SKU image assets are not stored/served in item details yet.
+
+## Improvements With More Time
+
+- Implement dynamic resupply logic using real supplier lead-time + service-level targets.
+- Add authentication and authorization (RBAC) at endpoint level.
+- Expand insights charts (fastest-selling and slowest-selling stock trends).
+- Add image support per SKU on item detail responses.
+
